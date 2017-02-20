@@ -31,7 +31,7 @@ defmodule Deque.Mixfile do
       licenses: ["MIT"],
       files: ["lib/*", "mix.exs", "README*", "LICENSE*"],
       links: %{
-        "GitHub" => "https://github.com/hammerandchisel/deq8e",
+        "GitHub" => "https://github.com/hammerandchisel/deque",
       },
     ]
   end
