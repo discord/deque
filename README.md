@@ -14,12 +14,6 @@ Erlang only supports fast prepends to lists while appending requires a full copy
 - `Collectable` protocol
 - `Inspect` protocol
 
-## Caveats
-
-- Compile times get slower as data size increases.
-- Getting a key that does not exist is expensive due to try/catch, put at least a `nil` value.
-- Creating atoms from strings is not cheap, use `FastGlobal.new`.
-
 ## Usage
 
 Add it to `mix.exs`
@@ -30,14 +24,16 @@ defp deps do
 end
 ```
 
-And just use it as a global map.
+Then use it like other Elixir data structures.
 
 ```elixir
 deque = Deque.new(5)
 deque = Deque.appendleft(1)
 deque = Deque.appendleft(2)
 deque = Deque.appendleft(3)
-3 == Deque.popleft()
+3 = Deque.popleft()
+
+[6, 7, 8, 9, 10] = Enum.into(0..10, Deque.new(5))
 ```
 
 ## License
