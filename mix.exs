@@ -4,11 +4,12 @@ defmodule Deque.Mixfile do
   def project do
     [
       app: :deque,
-      version: "0.0.1",
-      elixir: "~> 1.2",
+      version: "1.0.0",
+      elixir: "~> 1.3",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
-      deps: deps
+      deps: deps(),
+      package: package(),
     ]
   end
 
@@ -19,6 +20,19 @@ defmodule Deque.Mixfile do
   defp deps do
     [
       {:benchfella, "~> 0.3.0", only: :dev}
+    ]
+  end
+
+  def package do
+    [
+      name: :deque,
+      description: "Fast bounded deque using two rotating lists.",
+      maintainers: [],
+      licenses: ["MIT"],
+      files: ["lib/*", "mix.exs", "README*", "LICENSE*"],
+      links: %{
+        "GitHub" => "https://github.com/hammerandchisel/deq8e",
+      },
     ]
   end
 end
