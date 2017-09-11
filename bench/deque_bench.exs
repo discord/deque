@@ -6,7 +6,17 @@ defmodule DequeBench do
     :ok
   end
 
-  bench "Enum.take_while/2", [deque: gen_deque(400, 400)] do
+  bench "Enum.take_while/2 (best)", [deque: gen_deque(400, 400)] do
+    seq = 400
+    deque
+      |> Enum.reverse
+      |> Enum.take_while(&(&1 > seq))
+      |> Enum.reverse
+      |> Enum.into(Deque.clear(deque))
+    :ok
+  end
+
+  bench "Enum.take_while/2 (average)", [deque: gen_deque(400, 400)] do
     seq = 300
     deque
       |> Enum.reverse
@@ -16,8 +26,31 @@ defmodule DequeBench do
     :ok
   end
 
-  bench "Deque.take_while/2", [deque: gen_deque(400, 400)] do
+  bench "Enum.take_while/2 (worst)", [deque: gen_deque(400, 400)] do
+    seq = 100
+    deque
+      |> Enum.reverse
+      |> Enum.take_while(&(&1 > seq))
+      |> Enum.reverse
+      |> Enum.into(Deque.clear(deque))
+    :ok
+  end
+
+  bench "Deque.take_while/2 (best)", [deque: gen_deque(400, 400)] do
+    seq = 400
+    Deque.take_while(deque, &(&1 > seq))
+    :ok
+  end
+
+
+  bench "Deque.take_while/2 (average)", [deque: gen_deque(400, 400)] do
     seq = 300
+    Deque.take_while(deque, &(&1 > seq))
+    :ok
+  end
+
+  bench "Deque.take_while/2 (worst)", [deque: gen_deque(400, 400)] do
+    seq = 100
     Deque.take_while(deque, &(&1 > seq))
     :ok
   end
