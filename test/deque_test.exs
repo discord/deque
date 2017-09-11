@@ -41,7 +41,19 @@ defmodule DequeTest do
   end
 
   test "collectable/inspect" do
-    deque = Enum.into([1, 2, 3, 4, 5, 6], Deque.new(5))
+    deque = Enum.into(1..6, Deque.new(5))
     assert inspect(deque) == "#Deque<[2, 3, 4, 5, 6]>"
+  end
+
+  test "take_while" do
+    deque = gen_take_while(498..500, 5, 498)
+    assert Enum.to_list(deque) == [499, 500]
+
+    deque = gen_take_while(400..500, 10, 492)
+    assert Enum.to_list(deque) == [493, 494, 495, 496, 497, 498, 499, 500]
+  end
+
+  defp gen_take_while(range, max_size, max_value) do
+    range |> Enum.into(Deque.new(max_size)) |> Deque.take_while(&(&1 > max_value))
   end
 end

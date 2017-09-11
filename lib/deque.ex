@@ -85,6 +85,39 @@ defmodule Deque do
   @spec clear(t) :: t
   def clear(%Deque{max_size: max_size}), do: new(max_size)
 
+  @spec take_while(t, (term -> boolean)) :: t
+  def take_while(%Deque{list1: [], list2: []}=deque, _func), do: deque
+  def take_while(%Deque{list1: list1, list2: list2}=deque, func) do
+    case lazy_take_while(list2, func) do
+      # If the tail list halts, then everything in head list is invalid.
+      {:halt, list2_n, list2} ->
+        %{deque | size: list2_n, list1: [], list2: Enum.reverse(list2)}
+      {list2_n, list2} ->
+        # Halting does not matter when filtering the head list. Reverse the list
+        # before attempting to filter it, it will automatically be reversed again.
+        {list1_n, list1} =
+          with {:halt, list1_n, list1} <- lazy_take_while(Enum.reverse(list1), func) do
+            {list1_n, list1}
+          end
+        %{deque | size: list1_n + list2_n, list1: list1, list2: Enum.reverse(list2)}
+    end
+  end
+
+  ## Private
+
+  defp lazy_take_while(list, func), do: lazy_take_while(list, [], 0, func)
+
+  defp lazy_take_while([], acc, n, _func), do: {n, acc}
+  defp lazy_take_while([h | t], acc, n, func) do
+    if func.(h) do
+      lazy_take_while(t, [h | acc], n + 1, func)
+    else
+      {:halt, n, acc}
+    end
+  end
+
+  ## Protocols
+
   defimpl Enumerable do
     def reduce(_, {:halt, acc}, _fun) do
       {:halted, acc}
