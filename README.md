@@ -1,6 +1,6 @@
 # Deque
 
-[![Master](https://travis-ci.org/hammerandchisel/deque.svg?branch=master)](https://travis-ci.org/hammerandchisel/deque)
+[![Master](https://travis-ci.org/discordapp/deque.svg?branch=master)](https://travis-ci.org/discordapp/deque)
 [![Hex.pm Version](http://img.shields.io/hexpm/v/deque.svg?style=flat)](https://hex.pm/packages/deque)
 
 Erlang only supports fast prepends to lists while appending requires a full copy. Getting the size of a list is also a
