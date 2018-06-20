@@ -4,12 +4,12 @@ defmodule Deque.Mixfile do
   def project do
     [
       app: :deque,
-      version: "1.1.0",
-      elixir: "~> 1.3",
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      version: "1.2.0",
+      elixir: ">= 1.5.0",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps(),
-      package: package(),
+      package: package()
     ]
   end
 
@@ -31,8 +31,8 @@ defmodule Deque.Mixfile do
       licenses: ["MIT"],
       files: ["lib/*", "mix.exs", "README*", "LICENSE*"],
       links: %{
-        "GitHub" => "https://github.com/discordapp/deque",
-      },
+        "GitHub" => "https://github.com/discordapp/deque"
+      }
     ]
   end
 end
