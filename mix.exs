@@ -19,7 +19,7 @@ defmodule Deque.Mixfile do
 
   defp deps do
     [
-      {:benchfella, "~> 0.3.0", only: :dev}
+      {:benchfella, "~> 0.3.5", only: :dev}
     ]
   end
 
