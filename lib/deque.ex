@@ -145,6 +145,10 @@ defmodule Deque do
     def count(%Deque{size: size}) do
       {:ok, size}
     end
+
+    def slice(%Deque{}) do
+      {:error, __MODULE__}
+    end
   end
 
   defimpl Collectable do
