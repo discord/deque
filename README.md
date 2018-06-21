@@ -27,13 +27,18 @@ end
 Then use it like other Elixir data structures.
 
 ```elixir
-deque = Deque.new(5)
-deque = Deque.appendleft(1)
-deque = Deque.appendleft(2)
-deque = Deque.appendleft(3)
-3 = Deque.popleft()
+# Deque<[3, 2, 1]>
+deque =
+  Deque.new(5)
+  |> Deque.appendleft(1)
+  |> Deque.appendleft(2)
+  |> Deque.appendleft(3)
 
-[6, 7, 8, 9, 10] = Enum.into(0..10, Deque.new(5))
+# Deque<[2, 1]>
+{3, deque} = Deque.popleft(deque)
+
+# Deque<[6, 7, 8, 9, 10]>
+Enum.into(0..10, Deque.new(5))
 ```
 
 ## License
