@@ -13,12 +13,15 @@ defmodule Deque do
 
   defstruct size: 0, max_size: nil, list1: [], list2: []
 
-  @spec new(integer) :: t
+  @spec new(non_neg_integer) :: t
   def new(max_size \\ 100) do
     %Deque{max_size: max_size}
   end
 
   @spec append(t, value) :: t
+  def append(%Deque{max_size: 0}=deque, _value) do
+    deque
+  end
   def append(%Deque{size: size, max_size: max_size, list1: [], list2: list2}=deque, value) when size < max_size do
     %{deque | size: size + 1, list2: [value|list2]}
   end
@@ -33,6 +36,9 @@ defmodule Deque do
   end
 
   @spec appendleft(t, value) :: t
+    def appendleft(%Deque{max_size: 0}=deque, _value) do
+    deque
+  end
   def appendleft(%Deque{size: size, max_size: max_size, list1: list1, list2: []}=deque, value) when size < max_size do
     %{deque | size: size + 1, list1: [value|list1]}
   end
